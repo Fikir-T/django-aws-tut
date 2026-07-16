@@ -1,0 +1,14 @@
+django
+pillow
+# Production Database Driver (For RDS PostgreSQL)
+psycopg2-binary>=2.9.9
+
+# Production Web Server Interface (Matches user-data.sh)
+gunicorn>=21.2.0
+
+# AWS S3 Storage Integration
+django-storages[boto3]>=1.14.2
+boto3>=1.34.0
+
+# Environment Variable Management
+django-environ>=0.11.2
