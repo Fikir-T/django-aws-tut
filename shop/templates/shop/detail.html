@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>{{items.item_name}}</title>
+{% endblock %}
+{% block content %}
+<section>
+    <div>
+        <!-- <a href="{#{% url 'item:add_review' item.id %}#}"> -->
+
+        <ul>
+            <h2>{{items.item_name}}</h2>
+            <!-- <p>{#{{items.item_category}}#}</p> -->
+            <p>{{items.description}}</p>
+        </ul>
+    </div>
+        {#{% if not reviewed %}#}
+    {% if user.is_authenticated and not reviewed %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="rating">
+            <input value="5" name="rating" id="star5" type="radio" required>
+            <label for="star5" title="5 stars"></label>
+            <input value="4" name="rating" id="star4" type="radio">
+            <label for="star4" title="4 stars"></label>
+            <input value="3" name="rating" id="star3" type="radio">
+            <label for="star3" title="3 stars"></label>
+            <input value="2" name="rating" id="star2" type="radio">
+            <label for="star2" title="2 stars"></label>
+            <input value="1" name="rating" id="star1" type="radio">
+            <label for="star1" title="1 star"></label>
+        </div>
+        <br>
+        <textarea name="review" rows="4" cols="40" placeholder="Write your review here..." ></textarea>
+        <br>
+        <button type="submit" class="submit">Submit Review</button>
+    </form>
+    {% elif user.is_authenticated and reviewed %}
+    <p>Your review</p>
+    <div class="stars">
+        <strong>{{ reviewed.user }}</strong><br>
+        {% for i in "12345"|make_list %}
+        {% if forloop.counter <= reviewed.rating %} <span style="color:#6f00ff; font-size: 24px;">&#9733;</span>
+            {% else %}
+            <span style="color:#ccc; font-size: 24px;">&#9733;</span>
+            {% endif %}
+            {% endfor %}
+            <p>{{ reviewed.review }}</p>
+
+    </div>
+    <hr>
+
+    {% else %}
+    <p>You must <a href="{% url 'login' %}?next={{ request.path }}">log in</a> to leave a review.</p>
+    {% endif %}
+
+
+
+    {% for review in showreviews %}
+    {% if reviewed.user != review.user %}
+
+
+
+    <div class="stars">
+        <strong>{{ review.user }}</strong><br>
+        {% for i in "12345"|make_list %}
+        {% if forloop.counter <= review.rating %} <span style="color:#6f00ff; font-size: 24px;">&#9733;</span>
+            {% else %}
+            <span style="color:#ccc; font-size: 24px;">&#9733;</span>
+            {% endif %}
+            {% endfor %}
+            <p>{{ review.review }}</p>
+    </div>
+
+
+    <hr>
+    {% endif %}
+    {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Home</title>
+{% endblock title %}
+{% block content %}
+<section id="hero-section">
+  <div class="landing">
+    <h1>Wear a hoodie, Look like a baddie.</h1>
+    <p>From dormitory to downtown, we've got you.</p>
+    <a href="{% url 'item:shop' %}">Shop Now</a>
+  </div>
+  <div class="landing-image">
+    <img src="{% static 'main/hoodie.png' %}" loading="lazy" alt="Hero outfit">
+  </div>
+
+</section>
+<section>
+  <div class="filter-card">
+    <h2>Categories</h2>
+    <br>
+    <div class="category-circles">
+      <a href="#">
+        <div class="circle"><img src="{% static 'main/images/men.jpg' %}" alt="" loading="lazy"> </div>
+      </a>
+      <a href="#">
+        <div class="circle"><img src="{% static 'main/images/women.webp' %}" alt="" loading="lazy"></div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- <div class="filter">
+  <button>Jeans</button>
+
+</div> -->
+
+
+
+
+
+<div class="filter-card">
+    <h2>Filter by Category</h2>
+    <div class="filter-options">
+        {% for categories in category %}
+            <input type="checkbox" 
+                   class="sr-check"
+                   id="cat{{categories.CategoryId}}" 
+                   name="category_ids" 
+                   value="{{categories.CategoryId}}"
+                   hx-get="{% url 'filter_items' %}"
+                   hx-target="#item-list-container"
+                   hx-include="[name='category_ids']"
+                   hx-trigger="change">
+            <label for="cat{{categories.CategoryId}}" class="pill-filter">
+                {{ categories.category_name }}
+            </label>
+        {% endfor %}
+    </div>
+</div>
+
+<section id="item-list-container">
+    {% include 'main/partials/filter.html' %}
+</section>
+
+</section>
+
+
+{% endblock content %}

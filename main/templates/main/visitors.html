@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load tz %}
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Time</th>
+            <th>Local Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for users in Online %}
+        <tr>
+            <td>{{users.user}}</td>
+            <td>{{users.last_seen}}</td>
+            <td>{{ users.last_seen|localtime|date:"Y-m-d H:i:s" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% load static %}
+<div class="item-grid">
+    {% for items in item %}
+        <a href="{% url 'item:detail' items.id %}" class="item-card">
+            {% if items.item_image %}
+                <img src="{{ items.item_image.url }}" alt="{{ items.item_name }}" loading="lazy">
+            {% else %}
+                <img src="{% static 'main/images/placeholder.webp' %}" alt="No image" loading="lazy">
+                <!-- main\static\main\Images\placeholder.webp -->
+            {% endif %}
+            <div class="item-card-content">
+                <h3>{{ items.item_name }}</h3>
+                <p>{{ items.description|truncatewords:15 }}</p>
+                <span class="item-price">ETB{{ items.price }}</span>
+            </div>
+        </a>
+    {% empty %}
+        <p>No items match the selected categories.</p>
+    {% endfor %}
+</div>

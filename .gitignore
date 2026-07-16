@@ -1,0 +1,17 @@
+media
+notifications
+circle.html
+main/static/main/style.css
+DjangoBase/credentials.py
+.env
+messages.json
+rnd.py
+Dashboard
+media
+db.sqlite3
+notifications
+main/__pycache__
+main/migrations
+DjangoBase/__pycache__
+shop/__pycache__
+shop/migrations
