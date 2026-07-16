@@ -8,7 +8,7 @@ messages.json
 rnd.py
 Dashboard
 media
-db.sqlite3
+# db.sqlite3
 notifications
 main/__pycache__
 main/migrations
